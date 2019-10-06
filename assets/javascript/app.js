@@ -45,29 +45,19 @@ database.ref().on("child_added", function(childSnapshot){
 
     console.log(childStartTime);
 
-    //create a moment object
-    var mStart = moment(childStartTime, "HH:mm");
-    console.log(mStart.toString());
+    // //create a moment object
+    var momentStart = moment(childStartTime, "HH:mm");
+    var nextArrival = momentStart.add(childFrequency, "minutes").format("LT");
+    var momentDiff = moment(momentStart).diff(moment(), "minutes");
+    var minutesRemain = momentDiff % childFrequency;
 
-    //var moment = moment(childStartTime).format("LT");
-    //variable for to calculate next arrival time from startTime
-
-    var nextArrival = mStart.add(childFrequency, "minutes").format("LT");
-    console.log(nextArrival);
-
-    //variable to hold minutes away from next arrival minus current time
-    var mCurrent = moment();
-    var subArrival = moment(nextArrival, "HH:mm")
-    console.log(mCurrent.toString());
-    var remaining = mCurrent.subtract(subArrival);
-    console.log(remaining.toString());
 
     var newRow = `<tr>
                     <td>${childName}</td>
                     <td>${childDestination}</td>
                     <td>${childFrequency}</td>
                     <td>${nextArrival}</td>
-                    <td>remaining minutes</td>
+                    <td>${minutesRemain} mins</td>
     </tr>`
     //append content to the display table
     $("tbody").append(newRow);
