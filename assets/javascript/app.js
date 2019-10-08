@@ -46,18 +46,24 @@ database.ref().on("child_added", function(childSnapshot){
     console.log(childStartTime);
 
     // //create a moment object
-    var momentStart = moment(childStartTime, "HH:mm");
-    var nextArrival = momentStart.add(childFrequency, "minutes").format("LT");
-    var momentDiff = moment(momentStart).diff(moment(), "minutes");
-    var minutesRemain = momentDiff % childFrequency;
-
+    var minAway;
+    //change the year so the first train comes before now
+    var firstNewTrain = moment(childStartTime, "hh:mm").subtract(1, "years");
+    //difference between the current and first train
+    var diffTime = moment().diff(moment(firstNewTrain), "minutes");
+    var remainder = diffTime % childFrequency;
+    //minutes until next train
+    minAway = childFrequency - remainder;
+    //next train time 
+    var nextTrain = moment().add(minAway, "minutes");
+    nextTrain = moment(nextTrain).format("hh:mm");
 
     var newRow = `<tr>
                     <td>${childName}</td>
                     <td>${childDestination}</td>
                     <td>${childFrequency}</td>
-                    <td>${nextArrival}</td>
-                    <td>${minutesRemain} mins</td>
+                    <td>${nextTrain}</td>
+                    <td>${minAway} mins</td>
     </tr>`
     //append content to the display table
     $("tbody").append(newRow);
