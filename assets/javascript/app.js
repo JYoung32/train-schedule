@@ -30,9 +30,13 @@ $(".btn-submit").on("click", function(event){
         destination : destination,
         startTime : startTime,
         frequency : frequency
-    })
+    });
+
+    $("#trainName, #destination, #startTime, #frequency").val("");
     //don't refresh the page
     return false;
+
+    
 });
 
 //firebase watcher and initial loader.
@@ -67,4 +71,4 @@ database.ref().on("child_added", function(childSnapshot){
     </tr>`
     //append content to the display table
     $("tbody").append(newRow);
-})
+});
