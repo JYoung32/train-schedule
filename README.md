@@ -10,4 +10,12 @@ Welcome to the Train Schedule site. Does your train update on a regular basis an
 5. Hit the submit button and watch your train update!
 ***
 ### Tools and Technologies used
-HTML, CSS, JavaScript, JQuery, Firebase, Moment.JS
+HTML  
+CSS  
+JavaScript   
+JQuery  
+Firebase   
+Moment.JS  
+***
+### Link To Site
+https://jyoung32.github.io/train-schedule/
